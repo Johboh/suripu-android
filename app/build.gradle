@@ -30,9 +30,9 @@ android {
 
     signingConfigs {
         debug {
-            keyAlias "androiddebugkey"
-            storeFile file("../../Hello-Android-Internal.keystore")
-            storePassword "android"
+            //keyAlias "androiddebugkey"
+            //storeFile file("../../Hello-Android-Internal.keystore")
+            //storePassword "android"
         }
         release {
             storeFile file("../../Hello-Android-Release.keystore")

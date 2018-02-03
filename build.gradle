@@ -2,6 +2,7 @@
 
 buildscript {
     repositories {
+    	mavenLocal()
         jcenter()
     }
     dependencies {
@@ -15,7 +16,8 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        mavenLocal()
+	jcenter()
         /*
          * You will need to define the following properties in "$HOME/.gradle/gradle.properties"
          *
@@ -25,7 +27,7 @@ allprojects {
          * Unfortunately, Android Studio on OS X does not properly
          * inherit environment variables defined in your .*profile.
          */
-        maven {
+/*        maven {
             url 's3://hello-maven/snapshot'
             credentials(AwsCredentials) {
                 accessKey helloAwsAccessKeyID
@@ -38,7 +40,7 @@ allprojects {
                 accessKey helloAwsAccessKeyID
                 secretKey helloAwsSecretKey
             }
-        }
+        }*/
     }
 }
 
