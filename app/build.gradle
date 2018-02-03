@@ -5,12 +5,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.1'
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 
 repositories {
     maven { url 'https://zendesk.artifactoryonline.com/zendesk/repo' }
@@ -18,15 +16,15 @@ repositories {
 }
 
 
-def generateVersionCode() {
+static def generateVersionCode() {
     def now = new Date()
     def formatter = new SimpleDateFormat("yyMMddHH")
     Integer.parseInt(formatter.format(now))
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    compileSdkVersion 27
+    buildToolsVersion '26.0.2'
 
     signingConfigs {
         debug {
@@ -45,7 +43,7 @@ android {
     defaultConfig {
         applicationId "is.hello.sense"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode generateVersionCode()
         versionName "2.1.1"
         multiDexEnabled true
@@ -157,20 +155,6 @@ android {
     }
 }
 
-retrolambda {
-    def javaHome = System.getenv('JAVA_HOME')
-    if (javaHome != null) { // Manual, cross-platform
-        jdk javaHome.trim()
-    } else { // Magic, OS X only
-        def stdout = new ByteArrayOutputStream()
-        exec {
-            commandLine "/usr/libexec/java_home", "-v", "1.8"
-            standardOutput = stdout
-        }
-        jdk "$stdout".trim()
-    }
-}
-
 /**
  * Zendesk doesn't pass Java 7 validation, so we have to turn off
  * verification on the JVM in order to run tests. If we remove
@@ -209,7 +193,7 @@ dependencies {
     // retrolambda releases an update.
     // required for testing our fragments. https://github.com/robolectric/robolectric/issues/1932
 
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
     compile 'com.squareup.dagger:dagger:1.2.2'
     compile 'io.reactivex:rxjava:1.0.9'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
@@ -218,14 +202,14 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'net.danlew:android.joda:2.7.2'
     compile 'com.segment.analytics.android:analytics:4.1.0'
-    compile 'com.android.support:support-v13:25.0.1'
-    compile 'com.android.support:recyclerview-v7:25.0.1'
-    compile 'com.android.support:customtabs:25.0.1'
-    compile 'com.android.support:design:25.0.1'
+    compile 'com.android.support:support-v13:27.0.2'
+    compile 'com.android.support:recyclerview-v7:27.0.2'
+    compile 'com.android.support:customtabs:27.0.2'
+    compile 'com.android.support:design:27.0.2'
 
-    compile 'com.google.firebase:firebase-core:9.8.0'
-    compile 'com.google.firebase:firebase-messaging:9.8.0'
-    compile 'com.google.android.gms:play-services-location:9.8.0'
+    compile 'com.google.firebase:firebase-core:10.2.1'
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
+    compile 'com.google.android.gms:play-services-location:10.2.1'
 
     compile 'com.squareup.picasso:picasso:2.5.3-SNAPSHOT'
     compile 'me.grantland:autofittextview:0.2.1'
@@ -249,6 +233,7 @@ dependencies {
     developmentCompile 'net.hockeyapp.android:HockeySDK:3.5.0'
     developmentCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+    annotationProcessor 'com.squareup.dagger:dagger-compiler:1.2.2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
 
